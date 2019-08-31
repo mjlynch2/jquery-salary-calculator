@@ -14,16 +14,17 @@
         <h1>Salary Calculator</h1>
     </header>
     <main>
-        <div id="addEmployeeContainer">
+        <div class="addEmployeeContainer">
             <h2>Add Employee</h2>
             <input type="text" placeholder="First Name" id="firstNameInput">
             <input type="text" placeholder="Last Name" id="lastNameInput">
             <input type="number" placeholder="ID" id="idInput">
             <input type="text" placeholder="title" id="titleInput">
-            <input type="text" placeholder="Annual Salary" id="salaryInput">
-            <button id="submitBtn">Submit</button>
+            <input type="number" placeholder="Annual Salary" id="salaryInput">
+            <br/>
+            <button id="submitBtn" disabled>Submit</button>
         </div>
-        <div id="employeeInfoContainter">
+        <div class="employeeInfoContainer">
             <h2>Employees</h2>
             <table id="employeeInfoTable" style="width:100%">
                 <thead id="displayHeaders">
@@ -35,13 +36,9 @@
                     <th></th>
                 </thead>
                 <tbody id="employeeInfo">
-
                 </tbody>
-                <tfoot>
-
-                </tfoot>
             </table>
-            <h2>Total Monthly: <span id="totalMonthly">0</span></h2>
+            <h2 class="totals">Total Monthly: <span id="totalMonthly">$0.00</span></h2>
         </div>
     </main>
 
