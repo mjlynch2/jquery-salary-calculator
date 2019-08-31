@@ -1,26 +1,27 @@
 $(document).ready(readyNow);
 
 const listOfEmployees = [];
+let totalMonthly = 0;
+
+
 
 function readyNow(){
     console.log('in JS');
     $('#submitBtn').on('click', handleSubmit);
 }
 
-function appendToDom(){
-    $('.employeeInfoRow').empty();
-    for (employee of listOfEmployees){
-        let row = $("<tr class='employeeInfoRow></tr>");
-        let $data = $(`
-            <td>${employee.firstName}</td>
-            <td>${employee.lastName}</td>
-            <td>${employee.id}</td>
-            <td>${employee.title}</td>
-            <td>${employee.salary}</td>
-            <td>Delete Button Placeholder</td>
-        `);
-        row.append($data);
-    }
+function appendToDom(employee){
+    let deleteBtn = `<button class='deleteBtn'>Delete</button>`;
+    let $data = $(`<tr>
+        <td>${employee.firstName}</td>
+        <td>${employee.lastName}</td>
+        <td>${employee.id}</td>
+        <td>${employee.title}</td>
+        <td>${employee.salary}</td>
+        <td>${deleteBtn}</td>
+    </tr>`);
+    $('#employeeInfo').append($data);
+    $('.deleteBtn').on('click', handleDelete);
 }
 
 function handleSubmit(){
@@ -32,9 +33,22 @@ function handleSubmit(){
     let salary = $('#salaryInput').val();
     let newEmployee = new Employee(firstName, lastName, id, title, salary);
     listOfEmployees.push(newEmployee);
-    appendToDom();
+    appendToDom(newEmployee);
+    calculateTotalMonthly(salary);
+    // $('#addEmployeeContainer>input').val('');
 }
 
+function handleDelete(){
+    $(this).parent().parent().remove();
+}
+
+function calculateTotalMonthly(salary) {
+    let monthlySal = (salary / 12);
+    let el = $('#totalMonthly');
+    totalMonthly += monthlySal;
+    el.empty();
+    el.append(totalMonthly);
+}
 
 function Employee(_firstName, _lastName, _id, _title, _salary){
     this.firstName = _firstName;
