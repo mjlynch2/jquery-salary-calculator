@@ -8,11 +8,13 @@ let totalMonthly = 0;
 function readyNow(){
     console.log('in JS');
     $('#submitBtn').on('click', handleSubmit);
+    $('#employeeInfo').on('click', '.deleteBtn', handleDelete);
 }
 
 function appendToDom(employee){
     let deleteBtn = `<button class='deleteBtn'>Delete</button>`;
-    let $data = $(`<tr>
+    // let monthlySal = (employee.salary / 12);
+    let $td = $(`<tr data-sal=${employee.salary}>
         <td>${employee.firstName}</td>
         <td>${employee.lastName}</td>
         <td>${employee.id}</td>
@@ -20,12 +22,10 @@ function appendToDom(employee){
         <td>${employee.salary}</td>
         <td>${deleteBtn}</td>
     </tr>`);
-    $('#employeeInfo').append($data);
-    $('.deleteBtn').on('click', handleDelete);
+    $('#employeeInfo').append($td);
 }
 
 function handleSubmit(){
-    console.log('clicked');
     let firstName = $('#firstNameInput').val();
     let lastName = $('#lastNameInput').val();
     let id = $('#idInput').val();
@@ -39,15 +39,18 @@ function handleSubmit(){
 }
 
 function handleDelete(){
-    $(this).parent().parent().remove();
+    let el = $(this).parent().parent();
+    calculateTotalMonthly(-(el.data("sal")));
+    el.remove();
 }
 
 function calculateTotalMonthly(salary) {
     let monthlySal = (salary / 12);
     let el = $('#totalMonthly');
     totalMonthly += monthlySal;
+    let numToDisplay = Number(totalMonthly).toFixed(2);
     el.empty();
-    el.append(totalMonthly);
+    el.append(numToDisplay);
 }
 
 function Employee(_firstName, _lastName, _id, _title, _salary){
