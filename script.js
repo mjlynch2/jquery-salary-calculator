@@ -1,6 +1,6 @@
 $(document).ready(readyNow);
 // array of employees. I dont end up using this for the assignment, but it seems like a good idea to hang on to them
-const listOfEmployees = [];
+let listOfEmployees = [];
 // total monthly expenses based on annual salary of each employee
 let totalMonthly = 0;
 
